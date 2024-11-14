@@ -1,0 +1,22 @@
+<%- contentFor('body') %>
+
+<header>
+    <img id="imagem-header" src="static/imagens-padrão/logo-imd.png" alt="logo do imd">
+    <h1>Mercadão IMD</h1>
+</header>
+
+<h2>estes são produtos recomendados para você</h2>
+
+<% posts.forEach(function (post) { %>
+    
+<div class="produto">
+    <img class="imagem-posts" src="<%=post.foto%>" alt="">
+
+    <section>
+        <h3><%=post.titulo%></h3>
+        <p><%-post.texto%></p>
+        <h3 class="preco">R$ <%-post.Produto.preco.toFixed(2)%></h3>
+    </section>
+</div>
+
+<% }) %>

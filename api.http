@@ -1,0 +1,27 @@
+GET http://localhost:8080
+
+###
+
+GET http://localhost:8080/api/produto
+
+###
+
+GET http://localhost:8080/api/produto/3
+
+###
+
+POST http://localhost:8080/api/produto/token
+
+###
+
+PUT http://localhost:8080/api/produto?id=bf708829-1223-4232-8079-7df878717cc8
+content-type: application/json
+
+{
+    "nome": "poster-luva-de-pedreiro",
+    "preco": 666
+}
+
+###
+
+DELETE http://localhost:8080/api/produto?id=7

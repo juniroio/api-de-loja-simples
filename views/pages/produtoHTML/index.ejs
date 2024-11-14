@@ -1,0 +1,9 @@
+<%- contentFor('body') %>
+        <h1>Produtos</h1>
+                <%  produtos.forEach( function (produto) { %>
+                        <ul>
+                                <li>id: <%=produto.id%></li>
+                                <li>nome: <%=produto.nome%></li>
+                                <li>preço: <%=produto.preco%></li>
+                        </ul>   
+                <% })  %>

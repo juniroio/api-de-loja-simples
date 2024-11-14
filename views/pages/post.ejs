@@ -1,0 +1,25 @@
+<%- contentFor('body') %>
+
+<main class="main-post">
+    <article class="article-post">
+        <h1>
+            <%=post.Produto.nome%>
+        </h1>
+        
+        <img class="imagem-post" src="<%=post.foto%>" alt="Computador">
+
+        <section class="section-post">
+            <h3 class="preco-grande">R$ <%-post.Produto.preco.toFixed(2)%></h3>
+            
+            <div class="texto">
+                <%-post.Produto.descricao%>
+            </div>
+        </section>
+        
+    </article>
+    <footer>
+        <p>
+            postado em <%=post.postadoEm%>
+        </p>
+    </footer>
+</main>

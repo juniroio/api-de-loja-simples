@@ -1,0 +1,20 @@
+GET http://localhost:8080/api/posts
+
+###
+
+GET http://localhost:8080/api/posts/2
+
+###
+
+POST http://localhost:8080/api/posts
+Content-Type: application/json
+
+{
+    "titulo": "novo post",
+    "texto": "novo post criado",
+    "produtoId": 1
+}
+
+###
+
+DELETE http://localhost:8080/api/posts?id=3

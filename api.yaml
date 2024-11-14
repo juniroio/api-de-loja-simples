@@ -1,0 +1,450 @@
+openapi: '3.0.3'
+info:
+  title: MercadãoIMD API
+  version: '1.0'
+  description: API de uma loja virtual com fins educativos.
+  contact:
+    name: Juniro
+servers:
+  - url: http://localhost:8080/api
+    description: Servidor de teste
+paths:
+  /produto:
+    get:
+      operationId: getProdutos
+      summary: Obtém todos os produtos do sistema
+      tags:
+        - Produtos
+      responses:
+        '200':
+          description: Lista de produtos
+          content:
+            appication/json:
+              schema:
+                type: object
+                properties:
+                  produtos:
+                    type: array
+                    items:
+                      $ref:  "#/components/schemas/Produto"
+    
+    delete:
+      tags:
+        - Produtos
+      description: Remove um produto de determinado ID
+      operationId: deleteProdByID
+      summary: Remove um produto
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Produto deletado com sucesso!"
+        '400':
+          description: 400 Bad Request
+          content:
+            application/json:
+              schema:
+                $ref:  "#/components/schemas/Erro"
+
+    post:
+      tags:
+        - Produtos
+      operationId: postProd
+      summary: Adiciona um produto
+      requestBody:
+        content:
+          application/json:
+            schema:
+                $ref:  "#/components/schemas/PostProduto"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Produto adicionado com sucesso!"
+        '400':
+          description: 400 Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Não foi possivel cadastrar o produto!"
+    
+    put:
+      tags:
+        - Produtos
+      description: Atualiza um produto de determinado ID
+      operationId: putProdByID
+      summary: Atualiza um produto
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref:  "#/components/schemas/PostProduto"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Produto atualizado com sucesso!"
+
+
+  /produto/{id}:
+    get:
+      operationId: getProdById
+      summary: Obtém um produto a partir do id
+      tags:
+        - Produtos
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: Retorna um Produto específico
+          content:
+            appication/json:
+              schema:
+                type: object
+                properties:
+                  produtos:
+                    type: object
+                    $ref: "#/components/schemas/Produto"
+
+
+        '400':
+          description: Bad Request
+          content:
+            appication/json:
+              schema: 
+                $ref:  "#/components/schemas/Erro"
+
+  /produto/token:
+    post:
+      tags:
+        - Produtos
+      operationId: postToken
+      summary: gera um token que expira em 1 hora
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accessToken:
+                    type: string
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyYW5kb20iOjAuMTI2MzE1NDIzOTIwNTgzNywiaWF0IjoxNzMwOTI2NDU3LCJleHAiOjE3MzA5MzAwNTd9.eN2k0VVINvsd6KXD2rC0ItOlAcybLKt34tx0H5Cfo10"
+        '400':
+          description: 400 Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Não foi possivel cadastrar o produto!"
+
+
+
+
+
+  /posts:
+    get:
+      operationId: getPosts
+      summary: Obtém todos os posts do sistema
+      tags:
+        - Posts
+      responses:
+        '200':
+          description: Lista de posts
+          content:
+            appication/json:
+              schema:
+                type: object
+                properties:
+                  produtos:
+                    type: array
+                    items:
+                      $ref:  "#/components/schemas/Post"
+    
+    delete:
+      tags:
+        - Posts
+      description: Remove um post de determinado ID
+      operationId: deletePostByID
+      summary: Remove um popst
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Post deletado com sucesso!"
+        '400':
+          description: 400 Bad Request
+          content:
+            application/json:
+              schema:
+                $ref:  "#/components/schemas/ErroPost"
+
+    post:
+      tags:
+        - Posts
+      operationId: postPost
+      summary: Adiciona um post
+      requestBody:
+        content:
+          application/json:
+            schema:
+                $ref:  "#/components/schemas/PostPost"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Post adicionado com sucesso!"
+    
+    put:
+      tags:
+        - Posts
+      description: Atualiza um post de determinado ID
+      operationId: putPostByID
+      summary: Atualiza um post
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref:  "#/components/schemas/PostPost"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Produto atualizado com sucesso!"
+        '400':
+          description: 400 Bad Request
+          content:
+            application/json:
+              schema:
+                $ref:  "#/components/schemas/ErroPost"
+
+  /posts/{id}:
+    get:
+      operationId: getPostById
+      summary: Obtém uma postagem a partir do id
+      tags:
+        - Posts
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: Retorna uma específico
+          content:
+            appication/json:
+              schema:
+                type: object
+                properties:
+                  posts:
+                    type: object
+                    $ref: "#/components/schemas/PostDetalhado"
+
+
+        '400':
+          description: Bad Request
+          content:
+            appication/json:
+              schema: 
+                $ref:  "#/components/schemas/Erro"
+
+
+components:
+  schemas:
+    Produto:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Id do produto
+          example: 9
+        nome:
+          type: string
+          description: nome do produto
+          example: poster do Manoel gomes
+        preco:
+          type: number
+          description: preço do produto
+          example: 2
+        descricao:
+          type: string
+          description: descrição detalhada do produto
+          example: um poster do ilustrissimo e grandioso Manoel gomes para decorar o seu lar exuberantemente
+        tags:
+          type: array
+          description: caracteristicas do produto
+          example: ['poster', 'azul', 'celebridade', 'caneta']
+
+    PostProduto:
+      type: object
+      properties:
+        nome:
+          type: string
+          example: Filtro de barro
+        descricao:
+          type: string
+          example: Um filtro altamente tecnológico desenvolvido para tratar a água nauseabunda de sua residência, tornando-a pura, cristae própria para consumo.
+        preco:
+          type: number
+          example: 130
+        tags:
+          type: array
+          example: ['filtro', 'móvel', 'tecnologia', 'sofisticado']
+
+    Erro:
+      type: object
+      properties:
+        msg:
+          type: string
+          description: Mensagem de erro
+          example: Produto não encontrado!
+
+
+    
+    Post:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Id do produto
+          example: 2
+        titulo:
+          type: string
+          description: Um título curto para aparecer na página principal
+          example: Poster do Manoel gomes
+        texto:
+          type: string
+          description: Um texto curto para aparecer na página principal
+          example: Poster do ilustrissimo Manoel Gomes
+        produtoId:
+          type: integer
+          description: Chave estrangeira do preoduto que está sendo referenciado
+          example: 2
+        foto:
+          type: string
+          description: foto do produto referênciado para aparecer na página principal
+          example: /static/uploads/foto-1730149974056.jpg
+        createdAt:
+          type: string
+          description: Data de criação do produto referênciado
+          example: 2024-10-28T21:12:09.539Z
+        updatedAt:
+          type: string
+          description: Data da ultima alteração feita no produto referênciado
+          example: 2024-11-03T21:12:09.539Z
+    
+    PostDetalhado:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Id do produto
+          example: 2
+        titulo:
+          type: string
+          description: Um título curto para aparecer na página principal
+          example: Poster do Manoel gomes
+        texto:
+          type: string
+          description: Um texto curto para aparecer na página principal
+          example: Poster do ilustrissimo Manoel Gomes
+        foto:
+          type: string
+          description: foto do produto referênciado para aparecer na página principal
+          example: /static/uploads/foto-1730149974056.jpg
+        Produto:
+          $ref: "#/components/schemas/Produto"
+        
+    PostPost:
+      type: object
+      properties:
+        titulo:
+          type: string
+          example: Poster do Manoel gomes
+        texto:
+          type: string
+          example: Poster do ilustrissimo Manoel Gomes
+        produtoId:
+          type: integer
+          example: 2
+        foto:
+          type: string
+          example: /static/uploads/foto-1730149974056.jpg
+  
+    ErroPost:
+      type: object
+      properties:
+        msg:
+          type: string
+          description: Mensagem de erro
+          example: Post não encontrado!
